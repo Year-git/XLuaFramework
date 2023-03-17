@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Linq;
+using Framework;
 
 // 关于AssetBundle中BuildAssetBundleOptions各个选项的说明：
 // BuildAssetBundleOptions.None：使用LZMA算法压缩，压缩的包更小，但是加载时间更长。使用 之前需要整体解压。一旦被解压，这个包会使用LZ4重新压缩。使用资源的时候不需要整体解压。 在下载的时候可以使用LZMA算法，一旦它被下载了之后，它会使用LZ4算法保存到本地上； 
@@ -37,22 +38,22 @@ public class BuildTool : Editor
     {
         List<AssetBundleBuild> assetBundleBuilds = new List<AssetBundleBuild>();
         List<string> bundleInfos = new List<string>();
-        string[] files = Directory.GetFiles(PathUtil.AssetsPackagePath, "*", SearchOption.AllDirectories);
+        string[] files = Directory.GetFiles(PathDefine.AssetsPackagePath, "*", SearchOption.AllDirectories);
         // 获取AssetsPackage目录下的资源
         for (int i = 0; i < files.Length; i++)
         {
             if (files[i].EndsWith(".meta")) continue;
 
-            string fileName = PathUtil.GetStandardPath(files[i]);
+            string fileName = PathDefine.GetStandardPath(files[i]);
             AssetBundleBuild assetBundleBuild = new AssetBundleBuild();
 
             // 资源文件名 == Assets下的资源路径
-            string assetName = PathUtil.GetUnityPath(fileName);
+            string assetName = PathDefine.GetUnityPath(fileName);
             assetBundleBuild.assetNames = new string[] { assetName };
 
             // 资源bundle名 == 输出文件夹下的相对路径
-            string bundleName = fileName.Replace(PathUtil.AssetsPackagePath, "").ToLower();
-            assetBundleBuild.assetBundleName = bundleName + AppConst.BundleExtension;
+            string bundleName = fileName.Replace(PathDefine.AssetsPackagePath, "").ToLower();
+            assetBundleBuild.assetBundleName = bundleName + ConstDefine.BundleExtension;
 
             assetBundleBuilds.Add(assetBundleBuild);
 
@@ -68,18 +69,18 @@ public class BuildTool : Editor
         }
 
         // 构建bundle输出目录
-        if (Directory.Exists(PathUtil.BundleOutPath))
-            Directory.Delete(PathUtil.BundleOutPath, true);
+        if (Directory.Exists(PathDefine.BundleOutPath))
+            Directory.Delete(PathDefine.BundleOutPath, true);
 
-        Directory.CreateDirectory(PathUtil.BundleOutPath);
+        Directory.CreateDirectory(PathDefine.BundleOutPath);
 
         // 构建AssetBundles
-        BuildPipeline.BuildAssetBundles(PathUtil.BundleOutPath, assetBundleBuilds.ToArray(), assetBundleOptions, targetPlatform);
-        Debug.Log("-><color=#9AEBA3>" + "BundleOutPath -> " + PathUtil.BundleOutPath + "</color>");
+        BuildPipeline.BuildAssetBundles(PathDefine.BundleOutPath, assetBundleBuilds.ToArray(), assetBundleOptions, targetPlatform);
+        Debug.Log("-><color=#9AEBA3>" + "BundleOutPath -> " + PathDefine.BundleOutPath + "</color>");
         Debug.Log("-><color=#9AEBA3>" + "Building Success!" + "</color>");
 
         // 构建依赖文件
-        File.WriteAllLines(PathUtil.BundleOutPath + "/" + AppConst.FileListName, bundleInfos);
+        File.WriteAllLines(PathDefine.BundleOutPath + "/" + ConstDefine.FileListName, bundleInfos);
 
         // 刷新目录
         AssetDatabase.Refresh();

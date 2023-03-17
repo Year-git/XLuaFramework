@@ -1,18 +1,18 @@
 ManifestFileVersion: 0
-CRC: 284826076
+CRC: 1346432317
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: scene/mainscene.unity.ab
+      Name: scenes/main.unity.ab
       Dependencies: {}
     Info_1:
-      Name: effect/prefab/effect.prefab.ab
+      Name: effect/prefabs/effect.prefab.ab
       Dependencies: {}
     Info_2:
-      Name: model/prefab/cube.prefab.ab
+      Name: model/prefabs/cube.prefab.ab
       Dependencies: {}
     Info_3:
-      Name: ui/prefab/uimain.prefab.ab
+      Name: ui/prefabs/uimain.prefab.ab
       Dependencies:
         Dependency_0: ui/res/common/common_bg.png.ab
         Dependency_1: ui/res/common/common_button1.png.ab
