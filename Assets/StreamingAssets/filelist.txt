@@ -1,0 +1,7 @@
+Assets/AssetsPackage/Scene/MainScene.unity|scene/mainscene.unity.ab
+Assets/AssetsPackage/Effect/Prefab/Effect.prefab|effect/prefab/effect.prefab.ab
+Assets/AssetsPackage/Model/Prefab/Cube.prefab|model/prefab/cube.prefab.ab
+Assets/AssetsPackage/UI/Prefab/UIMain.prefab|ui/prefab/uimain.prefab.ab|Assets/AssetsPackage/UI/Res/common/common_button2.png|Assets/AssetsPackage/UI/Res/common/common_bg.png|Assets/AssetsPackage/UI/Res/common/common_button1.png
+Assets/AssetsPackage/UI/Res/common/common_bg.png|ui/res/common/common_bg.png.ab
+Assets/AssetsPackage/UI/Res/common/common_button1.png|ui/res/common/common_button1.png.ab
+Assets/AssetsPackage/UI/Res/common/common_button2.png|ui/res/common/common_button2.png.ab
