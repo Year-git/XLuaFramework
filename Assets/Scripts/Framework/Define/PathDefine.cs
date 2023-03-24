@@ -13,14 +13,30 @@ namespace Framework
         // 根目录
         public static readonly string AssetsPath = Application.dataPath;
 
-        // 需要打bundle的目录
+        // 需要打bundle的资源路径
         public static readonly string AssetsPackagePath = AssetsPath + "/AssetsPackage/";
 
-        // bundle输出跟目录
+        // bundle输出路径
         public static readonly string BundleOutPath = Application.streamingAssetsPath;
 
+        // 只读路径
+        public static string ReadPath = Application.streamingAssetsPath;
+
+        // 可读写路径
+        public static string ReadWritePath = Application.persistentDataPath;
+
         // bundle资源路径
-        public static string BundleResourcePath { get { return Application.streamingAssetsPath; } }
+        public static string BundleResourcePath
+        {
+            get
+            {
+                if (ConstDefine.GameMode == GameMode.UpdateMode)
+                    return ReadWritePath;
+                else
+                    return ReadPath;
+            }
+        }
+
 
         // 音乐资源路径
         public static string GetMusicPath(string name) { return string.Format("Assets/AssetsPackage/Audio/Music/{0}", name); }
@@ -36,27 +52,5 @@ namespace Framework
         public static string GetScenePath(string name) { return string.Format("Assets/AssetsPackage/Scenes/{0}.unity", name); }
         // UI资源路径
         public static string GetUIPath(string name) { return string.Format("Assets/AssetsPackage/UI/Prefabs/{0}.prefab", name); }
-
-        /// <summary>
-        /// 获取Unity的相对路径
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string GetUnityPath(string path)
-        {
-            if (string.IsNullOrEmpty(path)) return string.Empty;
-            return path.Substring(path.IndexOf("Assets"));
-        }
-
-        /// <summary>
-        /// 获取标准路径
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string GetStandardPath(string path)
-        {
-            if (string.IsNullOrEmpty(path)) return string.Empty;
-            return path.Trim().Replace("\\", "/");
-        }
     }
 }

@@ -44,11 +44,11 @@ public class BuildTool : Editor
         {
             if (files[i].EndsWith(".meta")) continue;
 
-            string fileName = PathDefine.GetStandardPath(files[i]);
+            string fileName = PathUtil.GetStandardPath(files[i]);
             AssetBundleBuild assetBundleBuild = new AssetBundleBuild();
 
             // 资源文件名 == Assets下的资源路径
-            string assetName = PathDefine.GetUnityPath(fileName);
+            string assetName = PathUtil.GetUnityPath(fileName);
             assetBundleBuild.assetNames = new string[] { assetName };
 
             // 资源bundle名 == 输出文件夹下的相对路径

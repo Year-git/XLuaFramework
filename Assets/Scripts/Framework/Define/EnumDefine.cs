@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace Framework
 {
-    // 枚举定义
-
     /// <summary>
     /// 游戏模式枚举
     /// </summary>

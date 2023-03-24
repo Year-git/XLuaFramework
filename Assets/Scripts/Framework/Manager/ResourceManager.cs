@@ -16,13 +16,17 @@ namespace Framework
         /// </summary>
         internal class BundleInfo
         {
-            public string AssetsName;
-            public string BundleName;
-            public List<string> Dependences;
+            public string assetsName;
+            public string bundleName;
+            public List<string> dependences;
         }
 
         private Dictionary<string, BundleInfo> m_BundleInfos = new Dictionary<string, BundleInfo>();
-        private void ParseVersionFile()
+
+        /// <summary>
+        /// 解析版本文件
+        /// </summary>
+        public void ParseVersionFile()
         {
             // 版本文件路径
             string url = Path.Combine(PathDefine.BundleResourcePath, ConstDefine.FileListName);
@@ -34,14 +38,14 @@ namespace Framework
                 BundleInfo bundleInfo = new BundleInfo();
                 string[] info = data[i].Split("|");
 
-                bundleInfo.AssetsName = info[0];
-                bundleInfo.BundleName = info[1];
-                bundleInfo.Dependences = new List<string>(info.Length - 2);
+                bundleInfo.assetsName = info[0];
+                bundleInfo.bundleName = info[1];
+                bundleInfo.dependences = new List<string>(info.Length - 2);
                 for (int j = 2; j < info.Length; j++)
                 {
-                    bundleInfo.Dependences.Add(info[j]);
+                    bundleInfo.dependences.Add(info[j]);
                 }
-                m_BundleInfos.Add(bundleInfo.AssetsName, bundleInfo);
+                m_BundleInfos.Add(bundleInfo.assetsName, bundleInfo);
             }
         }
 
@@ -54,9 +58,9 @@ namespace Framework
         IEnumerator LoadBundleAsync(string assetName, Action<UnityEngine.Object> callback = null)
         {
             BundleInfo bundleInfo = m_BundleInfos[assetName];
-            string bundleName = bundleInfo.BundleName;
+            string bundleName = bundleInfo.bundleName;
             string bundlePath = Path.Combine(PathDefine.BundleResourcePath, bundleName);
-            List<string> dependences = bundleInfo.Dependences;
+            List<string> dependences = bundleInfo.dependences;
 
             // 优先加载依赖bundle资源
             for (int i = 0; i < dependences.Count; i++)
@@ -80,8 +84,8 @@ namespace Framework
         /// <summary>
         /// 编辑器环境加载资源
         /// </summary>
-        /// <param name="assetName"></param>
-        /// <param name="callback"></param>
+        /// <param name="assetName">资源路径名</param>
+        /// <param name="callback">加载完成回调</param>
         private void EditorLoadAsset(string assetName, Action<UnityEngine.Object> callback = null)
         {
             UnityEngine.Object obj = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetName);
@@ -95,6 +99,11 @@ namespace Framework
         }
 #endif
 
+        /// <summary>
+        /// 异步加载资源
+        /// </summary>
+        /// <param name="assetName"></param>
+        /// <param name="callback"></param>
         private void LoadAsset(string assetName, Action<UnityEngine.Object> callback = null)
         {
             switch (ConstDefine.GameMode)
@@ -152,27 +161,5 @@ namespace Framework
         }
 
         // todo 卸载Bundle
-
-        void Start()
-        {
-            // 测试
-            ParseVersionFile();
-            LoadUI("UIMain", (obj) =>
-            {
-                GameObject go = Instantiate(obj) as GameObject;
-                go.transform.SetParent(this.transform);
-                go.SetActive(true);
-                go.name = obj.name;
-                go.transform.localPosition = Vector3.zero;
-                go.transform.localEulerAngles = Vector3.zero;
-                go.transform.localScale = Vector3.one;
-                RectTransform rectTransform = go.transform.GetComponent<RectTransform>();
-                if (rectTransform != null)
-                {
-                    rectTransform.offsetMax = Vector2.zero;
-                    rectTransform.offsetMin = Vector2.zero;
-                }
-            });
-        }
     }
 }
