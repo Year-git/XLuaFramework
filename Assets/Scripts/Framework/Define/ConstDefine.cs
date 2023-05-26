@@ -27,6 +27,7 @@ namespace Framework
         /// <summary>
         /// 热更新资源地址
         /// </summary>
-        public static string ResourceUrl = "http://game-yxy.gyyx.cn/HeroBallZ/TestAssetBundles"; //"http://127.0.0.1/AssetBundle";
+        public static string ResourceUrl = "http://game-yxy.gyyx.cn/HeroBallZ/TestAssetBundles";
+        // public static string ResourceUrl = "http://127.0.0.1/AssetBundle";
     }
 }

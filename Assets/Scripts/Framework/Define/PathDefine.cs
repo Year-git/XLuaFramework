@@ -25,6 +25,9 @@ namespace Framework
         // 可读写路径
         public static string ReadWritePath = Application.persistentDataPath;
 
+        // Lua脚本路径
+        public static string LuaPath = "Assets/AssetsPackage/LuaScripts";
+
         // bundle资源路径
         public static string BundleResourcePath
         {
@@ -37,20 +40,19 @@ namespace Framework
             }
         }
 
-
         // 音乐资源路径
-        public static string GetMusicPath(string name) { return string.Format("Assets/AssetsPackage/Audio/Music/{0}", name); }
+        public static string GetMusicPath(string name) => $"Assets/AssetsPackage/Audio/Music/{name}";
         // 音效资源路径
-        public static string GetSoundPath(string name) { return string.Format("Assets/AssetsPackage/Audio/Sound/{0}", name); }
+        public static string GetSoundPath(string name) => $"Assets/AssetsPackage/Audio/Sound/{name}";
         // 特效资源路径
-        public static string GetEffectPath(string name) { return string.Format("Assets/AssetsPackage/Effect/Prefabs/{0}.prefab", name); }
+        public static string GetEffectPath(string name) => $"Assets/AssetsPackage/Effect/Prefabs/{name}.prefab";
         // Lua脚本资源路径
-        public static string GetLuaScriptPath(string name) { return string.Format("Assets/AssetsPackage/LuaScripts/{0}.bytes", name); }
+        public static string GetLuaScriptPath(string name) => $"Assets/AssetsPackage/LuaScripts/{name}.bytes";
         // 模型资源路径
-        public static string GetModelPath(string name) { return string.Format("Assets/AssetsPackage/Model/Prefabs/{0}.prefab", name); }
+        public static string GetModelPath(string name) => $"Assets/AssetsPackage/Model/Prefabs/{name}.prefab";
         // 场景资源路径
-        public static string GetScenePath(string name) { return string.Format("Assets/AssetsPackage/Scenes/{0}.unity", name); }
+        public static string GetScenePath(string name) => $"Assets/AssetsPackage/Scenes/{name}.unity";
         // UI资源路径
-        public static string GetUIPath(string name) { return string.Format("Assets/AssetsPackage/UI/Prefabs/{0}.prefab", name); }
+        public static string GetUIPath(string name) => $"Assets/AssetsPackage/UI/Prefabs/{name}.prefab";
     }
 }

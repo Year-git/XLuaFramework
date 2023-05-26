@@ -42,10 +42,13 @@ namespace Framework
                 bundleInfo.bundleName = info[1];
                 bundleInfo.dependences = new List<string>(info.Length - 2);
                 for (int j = 2; j < info.Length; j++)
-                {
                     bundleInfo.dependences.Add(info[j]);
-                }
+
                 m_BundleInfos.Add(bundleInfo.assetsName, bundleInfo);
+
+                // 筛选Lua脚本
+                if (bundleInfo.assetsName.IndexOf("LuaScript") > 0)
+                    Manager.LuaManager.LuaNames.Add(bundleInfo.assetsName);
             }
         }
 
@@ -64,9 +67,7 @@ namespace Framework
 
             // 优先加载依赖bundle资源
             for (int i = 0; i < dependences.Count; i++)
-            {
                 yield return LoadBundleAsync(dependences[i]);
-            }
 
             // 从磁盘上的文件异步加载AssetBundle
             AssetBundleCreateRequest createRequest = AssetBundle.LoadFromFileAsync(bundlePath);
@@ -125,40 +126,14 @@ namespace Framework
             }
         }
 
-        public void LoadMusic(string assetName, Action<UnityEngine.Object> callback = null)
-        {
-            LoadAsset(PathDefine.GetMusicPath(assetName), callback);
-        }
-
-        public void LoadSound(string assetName, Action<UnityEngine.Object> callback = null)
-        {
-            LoadAsset(PathDefine.GetSoundPath(assetName), callback);
-        }
-
-        public void LoadEffect(string assetName, Action<UnityEngine.Object> callback = null)
-        {
-            LoadAsset(PathDefine.GetEffectPath(assetName), callback);
-        }
-
-        public void LoadLuaScript(string assetName, Action<UnityEngine.Object> callback = null)
-        {
-            LoadAsset(PathDefine.GetLuaScriptPath(assetName), callback);
-        }
-
-        public void LoadModel(string assetName, Action<UnityEngine.Object> callback = null)
-        {
-            LoadAsset(PathDefine.GetModelPath(assetName), callback);
-        }
-
-        public void LoadScene(string assetName, Action<UnityEngine.Object> callback = null)
-        {
-            LoadAsset(PathDefine.GetScenePath(assetName), callback);
-        }
-
-        public void LoadUI(string assetName, Action<UnityEngine.Object> callback = null)
-        {
-            LoadAsset(PathDefine.GetUIPath(assetName), callback);
-        }
+        public void LoadMusic(string assetName, Action<UnityEngine.Object> callback = null) => LoadAsset(PathDefine.GetMusicPath(assetName), callback);
+        public void LoadSound(string assetName, Action<UnityEngine.Object> callback = null) => LoadAsset(PathDefine.GetSoundPath(assetName), callback);
+        public void LoadEffect(string assetName, Action<UnityEngine.Object> callback = null) => LoadAsset(PathDefine.GetEffectPath(assetName), callback);
+        public void LoadLuaScript(string assetName, Action<UnityEngine.Object> callback = null) => LoadAsset(PathDefine.GetLuaScriptPath(assetName), callback);
+        public void LoadModel(string assetName, Action<UnityEngine.Object> callback = null) => LoadAsset(PathDefine.GetModelPath(assetName), callback);
+        public void LoadScene(string assetName, Action<UnityEngine.Object> callback = null) => LoadAsset(PathDefine.GetScenePath(assetName), callback);
+        public void LoadUI(string assetName, Action<UnityEngine.Object> callback = null) => LoadAsset(PathDefine.GetUIPath(assetName), callback);
+        public void LoadLua(string assetName, Action<UnityEngine.Object> callback = null) => LoadAsset(assetName, callback);
 
         // todo 卸载Bundle
     }
